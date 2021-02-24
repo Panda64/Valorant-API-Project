@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const WeaponSchema = new Schema({
     name : { type: String, required: true },
     cost : { type: String, required: true },
+    spread : { type: String, required: true },
     fire_type : { type: String, required: true },
     penetration : { type: String, required: true },
     fire_rate : { type: String, required: true },
