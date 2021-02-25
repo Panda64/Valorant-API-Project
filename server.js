@@ -33,6 +33,7 @@ app.use(checkAuth);
 
 
 // TODO: Add each controller here, after all middleware is initialized.
+const weapons_class = require('./controllers/weapons.js')(app);
 
 
 app.listen(3000, () => {

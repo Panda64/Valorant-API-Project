@@ -16,4 +16,6 @@ const WeaponSchema = new Schema({
     damage : [{ type: Schema.Types.ObjectId, ref: "DamageRange"}, { type: Schema.Types.ObjectId, ref: "DamageRange"}, { type: Schema.Types.ObjectId, ref: "DamageRange"}],
     alt_fire : [{ type: Schema.Types.ObjectId, ref: "AltFireFeature"}],
     feature : [{ type: Schema.Types.ObjectId, ref: "AltFireFeature"}]
-  });
+  })
+
+  module.exports = mongoose.model("Weapon", WeaponSchema)

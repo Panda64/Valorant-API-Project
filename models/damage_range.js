@@ -6,4 +6,6 @@ const DamageRangeSchema = new Schema({
     head : { type: String, required: true },
     body : { type: String, required: true },
     legs : { type: String, required: true }
-  });
+  })
+
+  module.exports = mongoose.model("DamageRange", DamageRangeSchema)

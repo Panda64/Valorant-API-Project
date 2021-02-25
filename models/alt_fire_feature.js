@@ -5,3 +5,5 @@ const AltFireFeatureSchema = new Schema({
     type : { type: String, required: true },
     attributes : { type: Array, required: true }
   })
+
+  module.exports = mongoose.model("AltFireFeature", AltFireFeatureSchema)

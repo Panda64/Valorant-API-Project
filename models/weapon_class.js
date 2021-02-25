@@ -5,3 +5,5 @@ const WeaponClassSchema = new Schema({
     name : { type: String, required: true },
     weapons : [{ type: Schema.Types.ObjectId, ref: "Weapon"}]
   })
+
+  module.exports = mongoose.model("WeaponClass", WeaponClassSchema)
