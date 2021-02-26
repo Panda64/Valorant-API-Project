@@ -6,7 +6,8 @@ const User = require('../models/user');
 
 module.exports = (app) => {
 
-    app.post("/weapon-class/new", (req, res) => {
+    // Creating a new weapon class
+    app.post("/weapon-class", (req, res) => {
         let weapon_class = new WeaponClass(req.body)
 
         weapon_class
@@ -19,11 +20,102 @@ module.exports = (app) => {
                         })
     })
 
-    app.get('/weapon-class/:name', function (req, res) {
-        WeaponClass.find({ name: req.params.name }).lean()
+    // Creating a new weapon
+    app.post("/:weapon_class_name", (req, res) => {
+        let data = req.body
+
+        let dmg1 = new DamageRange(data.damage[0])
+        let dmg2 = new DamageRange(data.damage[1])
+        let dmg3 = new DamageRange(data.damage[2])
+
+        let alt_fire = new AltFireFeature(data.alt_fire)
+        let feature = new AltFireFeature(data.feature)
+
+        let weapon = new Weapon({
+            name : data.name,
+            cost : data.cost,
+            spread : data.spread,
+            fire_type : data.fire_type,
+            penetration : data.penetration,
+            fire_rate : data.fire_rate,
+            run_speed : data.run_speed,
+            equip_speed : data.equip_speed,
+            first_shot_spread : data.first_shot_spread,
+            reload_speed : data.reload_speed,
+            magazine : data.magazine,
+            damage : [dmg1, dmg2, dmg3],
+            alt_fire : alt_fire,
+            feature : feature
+        })
+
+        weapon
+                .save()
+                .then(weapon => {
+                    return WeaponClass.findOne({ name: req.params.weapon_class_name })
+                })
+                .then(weapon_class => {
+                    weapon_class.weapons.push(weapon)
+                    weapon_class.save()
+                    res.send("Weapon succesfully created and added to a class!")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+    })
+
+    // Getting a specific weapon class
+    app.get('/:weapon_class_name', function (req, res) {
+        WeaponClass.findOne({ name: req.params.weapon_class_name })
+            .populate({
+                path : "weapons",
+                populate : { path : "damage alt_fire feature" },
+            })
             .then(weapon_class => {
                 res.send(weapon_class)
             })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+
+     // Getting a specific weapon 
+     app.get('/weapon/:weapon_name', function (req, res) {
+        Weapon.findOne({ name: req.params.weapon_name })
+            .populate("damage alt_fire feature")
+            .then(weapon => {
+                res.send(weapon)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+
+    // Deleting a specific weapon class
+    app.delete('/:weapon_class_name', function (req, res) {
+        WeaponClass.findOneAndDelete({ name: req.params.weapon_class_name })
+            .then(weapon_class => {
+                res.send(`${weapon_class.name} has been succesfully removed from the database`)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+
+    // Deleting a specific weapon
+    app.delete('/weapon/:weapon_name', function (req, res) {
+        // weapon = null
+
+        Weapon.findOneAndDelete({ name: req.params.weapon_name })
+            .then(weapon => {
+                // weapon = found_weapon
+                // return WeaponClass.findOne({ name: req.params.weapon_class_name })
+                res.send(`The ${weapon.name} has been succesfully removed from the database`)
+            })
+            // .then(weapon_class => {
+            //     // weapon_class.weapons.pull(weapon)
+            //     // weapon_class.save()
+                
+            // })
             .catch(err => {
                 console.log(err);
             })
