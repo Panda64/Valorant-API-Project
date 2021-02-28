@@ -27,9 +27,14 @@ module.exports = (app) => {
         let dmg1 = new DamageRange(data.damage[0])
         let dmg2 = new DamageRange(data.damage[1])
         let dmg3 = new DamageRange(data.damage[2])
+        dmg1.save()
+        dmg2.save()
+        dmg3.save()
 
         let alt_fire = new AltFireFeature(data.alt_fire)
         let feature = new AltFireFeature(data.feature)
+        alt_fire.save()
+        feature.save()
 
         let weapon = new Weapon({
             name : data.name,
@@ -107,15 +112,8 @@ module.exports = (app) => {
 
         Weapon.findOneAndDelete({ name: req.params.weapon_name })
             .then(weapon => {
-                // weapon = found_weapon
-                // return WeaponClass.findOne({ name: req.params.weapon_class_name })
                 res.send(`The ${weapon.name} has been succesfully removed from the database`)
             })
-            // .then(weapon_class => {
-            //     // weapon_class.weapons.pull(weapon)
-            //     // weapon_class.save()
-                
-            // })
             .catch(err => {
                 console.log(err);
             })
