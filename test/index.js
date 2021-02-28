@@ -202,6 +202,8 @@ describe("API Tests", function() {
                 expect(weapon_class.weapons[0]).to.be.an('object')
                 expect(weapon_class.weapons[0].name).to.equal('testweapon2')
                 expect(weapon_class.weapons[0].damage[0]).to.include(damage[0])
+                expect(weapon_class.weapons[0].damage[1]).to.include(damage[1])
+                expect(weapon_class.weapons[0].damage[2]).to.include(damage[2])
                 expect(weapon_class.weapons[0].alt_fire).to.deep.include(alt_fire)
                 expect(weapon_class.weapons[0].feature).to.deep.include(feature)
                 done()
