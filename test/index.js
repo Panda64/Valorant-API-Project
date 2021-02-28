@@ -94,8 +94,7 @@ describe("API Tests", function() {
         sampleWeapon.save()
 
           const sampleWeaponClass = new WeaponClass({
-              name: 'testclass1',
-              weapons: [],
+              name: 'testclass1'
           })
           sampleWeaponClass.save()
           .then(() => {
@@ -122,7 +121,7 @@ describe("API Tests", function() {
     it('should create a new weapon class', (done) => {
         chai.request(app)
         .post('/weapon-class')
-        .send({name: 'testclass2', weapons: []})
+        .send({name: 'testclass2'})
         .end((err, res) => {
             if (err) { done(err) }
             expect(res.body.message).to.equal('The testclass2 class has been successfully added to the database!')
@@ -206,6 +205,76 @@ describe("API Tests", function() {
                 expect(weapon_class.weapons[0].damage[2]).to.include(damage[2])
                 expect(weapon_class.weapons[0].alt_fire).to.deep.include(alt_fire)
                 expect(weapon_class.weapons[0].feature).to.deep.include(feature)
+                done()
+            })
+        })
+    })
+
+    it('should get one specific weapon class', (done) => {
+        chai.request(app)
+        .get('/testclass1')
+        .end((err, res) => {
+            if (err) { done(err) }
+            expect(res).to.have.status(200)
+            expect(res.body).to.be.an('object')
+            expect(res.body.name).to.equal('testclass1')
+            done()
+        })
+    })
+
+    it('should get one specific weapon from a class', (done) => {
+        chai.request(app)
+        .get('/weapon/testweapon1')
+        .end((err, res) => {
+            if (err) { done(err) }
+            expect(res).to.have.status(200)
+            expect(res.body).to.be.an('object')
+            expect(res.body.name).to.equal('testweapon1')
+            done()
+        })
+    })
+
+    it('should rename weapon class', (done) => {
+        chai.request(app)
+        .put('/testclass1')
+        .send({name: 'testclass3'})
+        .end((err, res) => {
+            if (err) { done(err) }
+            expect(res.body.message).to.equal('Weapon class testclass1 successfully renamed to testclass3')
+
+            // check that weapon class is properly in the database under its new name
+            WeaponClass.findOne({name: 'testclass3'}).then(weapon_class => {
+                expect(weapon_class).to.be.an('object')
+                done()
+            })
+        })
+    })
+
+    it('should delete a specific weapon class', (done) => {
+        chai.request(app)
+        .delete('/testclass1')
+        .end((err, res) => {
+            if (err) { done(err) }
+            expect(res.body.message).to.equal('The testclass1 class has been successfully removed from the database')
+
+            // check that weapon class is actually deleted from the database
+            WeaponClass.findOne({name: 'testclass1'}).then(weapon_class => {
+                expect(weapon_class).to.equal(null)
+                done()
+            })
+        })
+    })
+
+    it('should delete a specific weapon class', (done) => {
+        chai.request(app)
+        .delete('/weapon/testweapon1')
+        .end((err, res) => {
+            if (err) { done(err) }
+            expect(res.body.message).to.equal('The testweapon1 has been successfully removed from the database')
+
+            // check that weapon is actually deleted from the database
+            Weapon.findOne({name: 'testweapon1'}).then(weapon_class => {
+                expect(weapon_class).to.equal(null)
                 done()
             })
         })

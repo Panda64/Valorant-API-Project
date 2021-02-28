@@ -103,7 +103,9 @@ module.exports = (app) => {
                 weapon_class.name = data.name
                 weapon_class.save()
 
-                res.send(`Weapon class ${old_name} succesfully renamed to ${weapon_class.name}`)
+                res.send({ 
+                    message: `Weapon class ${old_name} successfully renamed to ${weapon_class.name}`
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -115,7 +117,9 @@ module.exports = (app) => {
     app.delete('/:weapon_class_name', function (req, res) {
         WeaponClass.findOneAndDelete({ name: req.params.weapon_class_name })
             .then(weapon_class => {
-                res.send(`${weapon_class.name} has been succesfully removed from the database`)
+                res.send({ 
+                    message: `The ${weapon_class.name} class has been successfully removed from the database`
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -124,11 +128,12 @@ module.exports = (app) => {
 
     // Deleting a specific weapon
     app.delete('/weapon/:weapon_name', function (req, res) {
-        // weapon = null
 
         Weapon.findOneAndDelete({ name: req.params.weapon_name })
             .then(weapon => {
-                res.send(`The ${weapon.name} has been succesfully removed from the database`)
+                res.send({ 
+                    message: `The ${weapon.name} has been successfully removed from the database`
+                })
             })
             .catch(err => {
                 console.log(err)
