@@ -79,7 +79,7 @@ module.exports = (app) => {
                 res.send(weapon_class)
             })
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
     })
 
@@ -91,9 +91,28 @@ module.exports = (app) => {
                 res.send(weapon)
             })
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
     })
+
+    // Updating weapon class name
+    app.put("/:weapon_class_name", function(req, res) {
+        let data = req.body
+
+        WeaponClass.findOne({ name: req.params.weapon_class_name })
+            .then(weapon_class => {
+                let old_name = weapon_class.name
+
+                weapon_class.name = data.name
+                weapon_class.save()
+
+                res.send(`Weapon class ${old_name} succesfully renamed to ${weapon_class.name}`)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    
+      })
 
     // Deleting a specific weapon class
     app.delete('/:weapon_class_name', function (req, res) {
@@ -102,7 +121,7 @@ module.exports = (app) => {
                 res.send(`${weapon_class.name} has been succesfully removed from the database`)
             })
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
     })
 
@@ -115,7 +134,7 @@ module.exports = (app) => {
                 res.send(`The ${weapon.name} has been succesfully removed from the database`)
             })
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
     })
 }
