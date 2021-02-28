@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
+const Populate = require("../util/autopopulate")
 
 const WeaponSchema = new Schema({
     name : { type: String, required: true },
@@ -17,5 +18,9 @@ const WeaponSchema = new Schema({
     alt_fire : { type: Schema.Types.ObjectId, ref: "AltFireFeature"},
     feature : { type: Schema.Types.ObjectId, ref: "AltFireFeature"}
   })
+
+  WeaponSchema
+    .pre('findOne', Populate('damage alt_fire feature'))
+    .pre('find', Populate('damage alt_fire feature'))
 
   module.exports = mongoose.model("Weapon", WeaponSchema)

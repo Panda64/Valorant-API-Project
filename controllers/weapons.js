@@ -1,8 +1,8 @@
-const WeaponClass = require('../models/weapon_class');
-const Weapon = require('../models/weapon');
-const DamageRange = require('../models/damage_range');
-const AltFireFeature = require('../models/alt_fire_feature');
-const User = require('../models/user');
+const WeaponClass = require('../models/weapon_class')
+const Weapon = require('../models/weapon')
+const DamageRange = require('../models/damage_range')
+const AltFireFeature = require('../models/alt_fire_feature')
+const User = require('../models/user')
 
 module.exports = (app) => {
 
@@ -13,14 +13,14 @@ module.exports = (app) => {
         weapon_class
                         .save()
                         .then(weapon_class => {
-                            res.send("Weapon Class added successfully")
+                            res.send({ message: `The ${weapon_class.name} class has been successfully added to the database!` })
                         })
                         .catch(err => {
                             console.log(err)
                         })
     })
 
-    // Creating a new weapon
+    // Creating a new weapon to add to a weapon class
     app.post("/:weapon_class_name", (req, res) => {
         let data = req.body
 
@@ -61,7 +61,9 @@ module.exports = (app) => {
                 .then(weapon_class => {
                     weapon_class.weapons.push(weapon)
                     weapon_class.save()
-                    res.send("Weapon succesfully created and added to a class!")
+                    res.send({ 
+                        message: `The ${weapon.name} has been successfully created and added to the ${weapon_class.name} class!`
+                    })
                 })
                 .catch(err => {
                     console.log(err)
@@ -71,10 +73,6 @@ module.exports = (app) => {
     // Getting a specific weapon class
     app.get('/:weapon_class_name', function (req, res) {
         WeaponClass.findOne({ name: req.params.weapon_class_name })
-            .populate({
-                path : "weapons",
-                populate : { path : "damage alt_fire feature" },
-            })
             .then(weapon_class => {
                 res.send(weapon_class)
             })
@@ -86,7 +84,6 @@ module.exports = (app) => {
      // Getting a specific weapon 
      app.get('/weapon/:weapon_name', function (req, res) {
         Weapon.findOne({ name: req.params.weapon_name })
-            .populate("damage alt_fire feature")
             .then(weapon => {
                 res.send(weapon)
             })
