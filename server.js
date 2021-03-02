@@ -19,19 +19,19 @@ app.use(cookieParser())
 
 require('./data/db')
 
-var jwtCheck = jwt({
-      secret: jwks.expressJwtSecret({
-          cache: true,
-          rateLimit: true,
-          jwksRequestsPerMinute: 5,
-          jwksUri: 'https://panda64.us.auth0.com/.well-known/jwks.json'
-      }),
-      audience: 'https://valorant-api',
-      issuer: 'https://panda64.us.auth0.com/',
-      algorithms: ['RS256']
-  });
+// var jwtCheck = jwt({
+//       secret: jwks.expressJwtSecret({
+//           cache: true,
+//           rateLimit: true,
+//           jwksRequestsPerMinute: 5,
+//           jwksUri: 'https://panda64.us.auth0.com/.well-known/jwks.json'
+//       }),
+//       audience: 'https://valorant-api',
+//       issuer: 'https://panda64.us.auth0.com/',
+//       algorithms: ['RS256']
+//   });
 
-  app.use(jwtCheck)
+//   app.use(jwtCheck)
 
 
 // TODO: Add each controller here, after all middleware is initialized.
