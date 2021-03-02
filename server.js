@@ -39,7 +39,7 @@ const weapons_class = require('./controllers/weapons.js')(app);
 
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log('API listening on port %d in %s mode');
+    console.log('API listening!');
   });
 
 module.exports = app;
