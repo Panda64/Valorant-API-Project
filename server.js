@@ -1,35 +1,37 @@
 require('dotenv').config();
 
-const express = require('express');
-var cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
+const express = require('express')
+var cookieParser = require('cookie-parser')
 
-const app = express();
+var jwt = require('express-jwt')
+var jwks = require('jwks-rsa')
 
-const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
+const app = express()
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const bodyParser = require('body-parser')
+const expressValidator = require('express-validator')
 
-app.use(expressValidator());
-app.use(cookieParser());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
-require('./data/db');
+app.use(expressValidator())
+app.use(cookieParser())
 
-var checkAuth = (req, res, next) => {
-  console.log("Checking authentication");
-  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
-    req.user = null;
-  } else {
-    var token = req.cookies.nToken;
-    var decodedToken = jwt.decode(token, { complete: true }) || {};
-    req.user = decodedToken.payload;
-  }
+require('./data/db')
 
-  next();
-};
-app.use(checkAuth);
+var jwtCheck = jwt({
+      secret: jwks.expressJwtSecret({
+          cache: true,
+          rateLimit: true,
+          jwksRequestsPerMinute: 5,
+          jwksUri: 'https://panda64.us.auth0.com/.well-known/jwks.json'
+      }),
+      audience: 'https://valorant-api',
+      issuer: 'https://panda64.us.auth0.com/',
+      algorithms: ['RS256']
+  });
+
+  app.use(jwtCheck)
 
 
 // TODO: Add each controller here, after all middleware is initialized.
