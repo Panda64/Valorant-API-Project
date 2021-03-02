@@ -38,8 +38,8 @@ require('./data/db')
 const weapons_class = require('./controllers/weapons.js')(app);
 
 
-app.listen(3000, () => {
-    console.log('API listening on port http://localhost:3000!');
+app.listen(process.env.PORT || 3000, () => {
+    console.log('API listening on port %d in %s mode');
   });
 
 module.exports = app;
