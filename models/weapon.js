@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 const Populate = require("../util/autopopulate")
 
 const WeaponSchema = new Schema({
-    name : { type: String, required: true },
+    name : { type: String, required: true, unique: true },
     cost : { type: String, required: true },
     spread : { type: String, required: true },
     fire_type : { type: String, required: true },
