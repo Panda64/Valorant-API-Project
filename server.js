@@ -17,7 +17,8 @@ app.use(cookieParser())
 require('./data/db')
 
 
-const weapons_class = require('./controllers/weapons.js')(app);
+const weapons = require('./controllers/weapon.js')(app)
+const weapon_classes = require('./controllers/weapon_class.js')(app);
 
 
 app.listen(process.env.PORT || 3000, () => {

@@ -5,7 +5,6 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const assert = chai.assert
 
-const User = require('../models/user.js')
 const WeaponClass = require('../models/weapon_class');
 const Weapon = require('../models/weapon');
 const DamageRange = require('../models/damage_range');
@@ -28,13 +27,7 @@ after((done) => {
 
 describe("API Tests", function() {
     beforeEach((done) => {
-      // const sampleUser = new User({
-      //     username: 'myuser',
-      //     password: 'mypassword',
-      //     _id: SAMPLE_USER_ID
-      // })
-      // sampleUser.save()
-
+  
         const sampleDmg1 = new DamageRange({
             range : "10m",
             head : "105",
