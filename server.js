@@ -17,9 +17,8 @@ app.use(cookieParser())
 require('./data/db')
 
 
-const weapons = require('./controllers/weapon.js')(app)
-const weapon_classes = require('./controllers/weapon_class.js')(app);
-
+const weapon_classe = require('./controllers/weapon_class.js')(app);
+const weapon = require('./controllers/weapon.js')(app)
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('API listening!');

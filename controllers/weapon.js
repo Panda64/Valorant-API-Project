@@ -9,7 +9,7 @@ module.exports = (app) => {
     app.post("/:weapon_class_name", (req, res) => {
         if (req.header('X-RapidAPI-Proxy-Secret') === process.env.RAPIDAPI_PROXY_SECRET) {
             let data = req.body
-
+            
             let dmg1 = new DamageRange(data.damage[0])
             let dmg2 = new DamageRange(data.damage[1])
             let dmg3 = new DamageRange(data.damage[2])

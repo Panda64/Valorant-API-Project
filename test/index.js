@@ -114,6 +114,7 @@ describe("API Tests", function() {
     it('should create a new weapon class', (done) => {
         chai.request(app)
         .post('/weapon-class')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .send({name: 'testclass2'})
         .end((err, res) => {
             if (err) { done(err) }
@@ -166,6 +167,7 @@ describe("API Tests", function() {
 
         chai.request(app)
         .post('/testclass1')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .send({
             name : "testweapon2",
             cost : "900",
@@ -206,6 +208,7 @@ describe("API Tests", function() {
     it('should get one specific weapon class', (done) => {
         chai.request(app)
         .get('/testclass1')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .end((err, res) => {
             if (err) { done(err) }
             expect(res).to.have.status(200)
@@ -218,6 +221,7 @@ describe("API Tests", function() {
     it('should get one specific weapon from a class', (done) => {
         chai.request(app)
         .get('/weapon/testweapon1')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .end((err, res) => {
             if (err) { done(err) }
             expect(res).to.have.status(200)
@@ -230,6 +234,7 @@ describe("API Tests", function() {
     it('should rename weapon class', (done) => {
         chai.request(app)
         .put('/testclass1')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .send({name: 'testclass3'})
         .end((err, res) => {
             if (err) { done(err) }
@@ -246,6 +251,7 @@ describe("API Tests", function() {
     it('should delete a specific weapon class', (done) => {
         chai.request(app)
         .delete('/testclass1')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .end((err, res) => {
             if (err) { done(err) }
             expect(res.body.message).to.equal('The testclass1 class has been successfully removed from the database')
@@ -261,6 +267,7 @@ describe("API Tests", function() {
     it('should delete a specific weapon class', (done) => {
         chai.request(app)
         .delete('/weapon/testweapon1')
+        .set('X-RapidAPI-Proxy-Secret', process.env.RAPIDAPI_PROXY_SECRET)
         .end((err, res) => {
             if (err) { done(err) }
             expect(res.body.message).to.equal('The testweapon1 has been successfully removed from the database')
@@ -270,6 +277,17 @@ describe("API Tests", function() {
                 expect(weapon_class).to.equal(null)
                 done()
             })
+        })
+    })
+
+    it('should deny access to an endpoint without the proper proxy secret header', (done) => {
+        chai.request(app)
+        .get('/testclass1')
+        .end((err, res) => {
+            if (err) { done(err) }
+            expect(res.body).to.be.an('object')
+            expect(res.body.message).to.equal('You do not have access to this endpoint')
+            done()
         })
     })
 })
