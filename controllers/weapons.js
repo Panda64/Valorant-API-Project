@@ -11,13 +11,14 @@ module.exports = (app) => {
             let weapon_class = new WeaponClass(req.body)
 
             weapon_class
-                            .save()
-                            .then(weapon_class => {
-                                res.send({ message: `The ${weapon_class.name} class has been successfully added to the database!` })
-                            })
-                            .catch(err => {
-                                console.log(err)
-                            })
+                .save()
+                .then(weapon_class => {
+                    res.send({ message: `The ${weapon_class.name} class has been successfully added to the database!` })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
+                })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
         }
@@ -58,20 +59,21 @@ module.exports = (app) => {
             })
 
             weapon
-                    .save()
-                    .then(weapon => {
-                        return WeaponClass.findOne({ name: req.params.weapon_class_name })
+                .save()
+                .then(weapon => {
+                    return WeaponClass.findOne({ name: req.params.weapon_class_name })
+                })
+                .then(weapon_class => {
+                    weapon_class.weapons.push(weapon)
+                    weapon_class.save()
+                    res.send({ 
+                        message: `The ${weapon.name} has been successfully created and added to the ${weapon_class.name} class!`
                     })
-                    .then(weapon_class => {
-                        weapon_class.weapons.push(weapon)
-                        weapon_class.save()
-                        res.send({ 
-                            message: `The ${weapon.name} has been successfully created and added to the ${weapon_class.name} class!`
-                        })
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
+                })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
         }
@@ -86,6 +88,7 @@ module.exports = (app) => {
                 })
                 .catch(err => {
                     console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
                 })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
@@ -101,6 +104,7 @@ module.exports = (app) => {
                 })
                 .catch(err => {
                     console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
                 })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
@@ -125,6 +129,7 @@ module.exports = (app) => {
                 })
                 .catch(err => {
                     console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
                 })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
@@ -142,6 +147,7 @@ module.exports = (app) => {
                 })
                 .catch(err => {
                     console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
                 })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
@@ -159,6 +165,7 @@ module.exports = (app) => {
                 })
                 .catch(err => {
                     console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
                 })
         } else {
             res.send({ message: "You do not have access to this endpoint"})
