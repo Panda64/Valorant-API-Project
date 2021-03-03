@@ -2,7 +2,6 @@ const WeaponClass = require('../models/weapon_class')
 const Weapon = require('../models/weapon')
 const DamageRange = require('../models/damage_range')
 const AltFireFeature = require('../models/alt_fire_feature')
-const User = require('../models/user')
 
 module.exports = (app) => {
 
