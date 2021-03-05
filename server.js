@@ -7,6 +7,7 @@ const app = express()
 
 app.use(express.static('public'))
 
+const exphbs  = require('express-handlebars')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 
