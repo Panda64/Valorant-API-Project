@@ -198,4 +198,4 @@ Here is an example response from the `Ghost` endpoint:
 
 If you find any problems with this API, feel free to open up a discussion at the [RapidAPI](https://rapidapi.com/Panda64/api/valorant-weapons) page, or open an issue on [Github](https://github.com/Panda64/Valorant-API-Project).
 
-*The weapon stats in this API are current as of patch 2.04*
+*The weapon stats in this API are current as of patch 2.06*
