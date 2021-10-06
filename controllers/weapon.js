@@ -14,6 +14,7 @@ module.exports = (app) => {
             let data = req.body
             let dmgs = []
 
+            console.log(data)
             // Creating Damage Models
             for (let i = 0; i < 3; i++) {
                 let rng = new RangeValue(data.damage[i].range)
