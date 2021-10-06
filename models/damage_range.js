@@ -4,9 +4,9 @@ const Populate = require("../util/autopopulate")
 
 const DamageRangeSchema = new Schema({
     range : { type: Schema.Types.ObjectId, ref: "RangeValue", required: true },
-    head : { type: String, required: true },
-    body : { type: String, required: true },
-    legs : { type: String, required: true }
+    head : { type: Number, required: true },
+    body : { type: Number, required: true },
+    legs : { type: Number, required: true }
   })
 
   DamageRangeSchema
