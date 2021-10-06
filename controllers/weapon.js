@@ -50,8 +50,8 @@ module.exports = (app) => {
             // Creating Alt-Fire Model
             let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
 
-            let alt_fire = new AltFire(data.alt_fire, {
-                // type : data.alt_fire.type,
+            let alt_fire = new AltFire({
+                type : data.alt_fire.type,
                 attributes : alt_fire_attributes
             })
 
@@ -70,18 +70,18 @@ module.exports = (app) => {
                     res.status(500).send({ message: "Error!", error_info: err})
                 })
 
-            let weapon = new Weapon(data, {
-                // name : data.name,
-                // cost : data.cost,
-                // spread : data.spread,
-                // fire_type : data.fire_type,
-                // penetration : data.penetration,
-                // fire_rate : data.fire_rate,
-                // run_speed : data.run_speed,
-                // equip_speed : data.equip_speed,
-                // first_shot_spread : data.first_shot_spread,
-                // reload_speed : data.reload_speed,
-                // magazine : data.magazine,
+            let weapon = new Weapon({
+                name : data.name,
+                cost : data.cost,
+                spread : data.spread,
+                fire_type : data.fire_type,
+                penetration : data.penetration,
+                fire_rate : data.fire_rate,
+                run_speed : data.run_speed,
+                equip_speed : data.equip_speed,
+                first_shot_spread : data.first_shot_spread,
+                reload_speed : data.reload_speed,
+                magazine : data.magazine,
                 damage : [dmgs[0], dmgs[1], dmgs[2]],
                 alt_fire : alt_fire,
                 feature : feature
