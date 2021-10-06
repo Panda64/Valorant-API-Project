@@ -15,8 +15,8 @@ const WeaponSchema = new Schema({
     reload_speed : { type: String, required: true },
     magazine : { type: String, required: true },
     damage : [{ type: Schema.Types.ObjectId, ref: "DamageRange"}],
-    alt_fire : { type: Schema.Types.ObjectId, ref: "AltFireFeature"},
-    feature : { type: Schema.Types.ObjectId, ref: "AltFireFeature"}
+    alt_fire : { type: Schema.Types.ObjectId, ref: "AltFire" },
+    feature : { type: Schema.Types.ObjectId, ref: "Feature" }
   })
 
   WeaponSchema

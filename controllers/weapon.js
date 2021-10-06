@@ -1,7 +1,10 @@
 const WeaponClass = require('../models/weapon_class')
 const Weapon = require('../models/weapon')
 const DamageRange = require('../models/damage_range')
-const AltFireFeature = require('../models/alt_fire_feature')
+const AltFire = require('../models/alt_fire')
+const Feature = require('../models/feature')
+const AltFireAttribute = require('../models/alt_fire_attributes')
+const RangeValue = require('../models/damage_range_values')
 
 module.exports = (app) => {
 
@@ -9,32 +12,72 @@ module.exports = (app) => {
     app.post("/:weapon_class_name", (req, res) => {
         if (req.header('X-RapidAPI-Proxy-Secret') === process.env.RAPIDAPI_PROXY_SECRET) {
             let data = req.body
+            let dmgs = []
+
+            // Creating Damage Models
+            for (let i = 0; i < 3; i++) {
+                let range = new RangeValue(data.damage[i].range)
+                range.save()
+
+                let dmg = new DamageRange({
+                    range : range,
+                    head : data.damage[i].head,
+                    body : data.damage[i].body,
+                    legs : data.damage[i].legs
+                })
+
+                dmg.save()
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({ message: "Error!", error_info: err})
+                    })
+                
+                dmgs.push(dmg)
+            }
             
-            let dmg1 = new DamageRange(data.damage[0])
-            let dmg2 = new DamageRange(data.damage[1])
-            let dmg3 = new DamageRange(data.damage[2])
-            dmg1.save()
-            dmg2.save()
-            dmg3.save()
+            // let dmg1 = new DamageRange(data.damage[0])
+            // let dmg2 = new DamageRange(data.damage[1])
+            // let dmg3 = new DamageRange(data.damage[2])
+            // dmg1.save()
+            // dmg2.save()
+            // dmg3.save()
 
-            let alt_fire = new AltFireFeature(data.alt_fire)
-            let feature = new AltFireFeature(data.feature)
+            // Creating Alt-Fire Model
+            let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
+
+            let alt_fire = new AltFire(data.alt_fire, {
+                // type : data.alt_fire.type,
+                attributes : alt_fire_attributes
+            })
+
             alt_fire.save()
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
+                })
+            
+            // Creating Feature Model
+            let feature = new Feature(data.feature)
+            
             feature.save()
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
+                })
 
-            let weapon = new Weapon({
-                name : data.name,
-                cost : data.cost,
-                spread : data.spread,
-                fire_type : data.fire_type,
-                penetration : data.penetration,
-                fire_rate : data.fire_rate,
-                run_speed : data.run_speed,
-                equip_speed : data.equip_speed,
-                first_shot_spread : data.first_shot_spread,
-                reload_speed : data.reload_speed,
-                magazine : data.magazine,
-                damage : [dmg1, dmg2, dmg3],
+            let weapon = new Weapon(data, {
+                // name : data.name,
+                // cost : data.cost,
+                // spread : data.spread,
+                // fire_type : data.fire_type,
+                // penetration : data.penetration,
+                // fire_rate : data.fire_rate,
+                // run_speed : data.run_speed,
+                // equip_speed : data.equip_speed,
+                // first_shot_spread : data.first_shot_spread,
+                // reload_speed : data.reload_speed,
+                // magazine : data.magazine,
+                damage : [dmgs[0], dmgs[1], dmgs[2]],
                 alt_fire : alt_fire,
                 feature : feature
             })

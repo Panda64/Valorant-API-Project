@@ -1,9 +1,9 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const AltFireFeatureSchema = new Schema({
+const FeatureSchema = new Schema({
     type : { type: String, required: true },
     attributes : { type: Array, required: true }
   })
 
-  module.exports = mongoose.model("AltFireFeature", AltFireFeatureSchema)
+  module.exports = mongoose.model("Feature", FeatureSchema)
