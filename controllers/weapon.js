@@ -16,11 +16,11 @@ module.exports = (app) => {
 
             // Creating Damage Models
             for (let i = 0; i < 3; i++) {
-                let range = new RangeValue(data.damage[i].range)
+                let rng = new RangeValue(data.damage[i].range)
                 range.save()
 
                 let dmg = new DamageRange({
-                    range : range,
+                    range : rng,
                     head : data.damage[i].head,
                     body : data.damage[i].body,
                     legs : data.damage[i].legs
