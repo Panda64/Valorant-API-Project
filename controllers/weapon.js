@@ -17,7 +17,11 @@ module.exports = (app) => {
             // Creating Damage Models
             for (let i = 0; i < 3; i++) {
                 let rng = new RangeValue(data.damage[i].range)
-                range.save()
+                rng.save()
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({ message: "Error!", error_info: err})
+                    })
 
                 let dmg = new DamageRange({
                     range : rng,
