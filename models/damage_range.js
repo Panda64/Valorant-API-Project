@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
+const Populate = require("../util/autopopulate")
 
 const DamageRangeSchema = new Schema({
     range : { type: Schema.Types.ObjectId, ref: "RangeValue", required: true },
