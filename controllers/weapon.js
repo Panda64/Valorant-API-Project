@@ -14,7 +14,6 @@ module.exports = (app) => {
             let data = req.body
             let dmgs = []
 
-            console.log(data)
             // Creating Damage Models
             for (let i = 0; i < 3; i++) {
                 if (data.damage[i]) {
@@ -41,13 +40,6 @@ module.exports = (app) => {
                     dmgs.push(dmg)
                 }
             }
-            
-            // let dmg1 = new DamageRange(data.damage[0])
-            // let dmg2 = new DamageRange(data.damage[1])
-            // let dmg3 = new DamageRange(data.damage[2])
-            // dmg1.save()
-            // dmg2.save()
-            // dmg3.save()
 
             // Creating Alt-Fire and the Associated Attributes Model
             let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
