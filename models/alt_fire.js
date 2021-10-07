@@ -4,7 +4,7 @@ const Populate = require("../util/autopopulate")
 
 const AltFireSchema = new Schema({
     type : { type: String, required: true },
-    attributes : { type: Schema.Types.ObjectId, ref: "Attribute", required: true }
+    attributes : { type: Schema.Types.ObjectId, ref: "AltFireAttribute", required: true }
   })
 
   AltFireSchema
