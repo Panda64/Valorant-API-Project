@@ -42,33 +42,37 @@ module.exports = (app) => {
             }
 
             // Creating Alt-Fire and the Associated Attributes Model
-            let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
+            if (data.alt_fire) {
+                let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
 
-            alt_fire_attributes.save()
-                .catch(err => {
-                    console.log(err)
-                    res.status(500).send({ message: "Error!", error_info: err})
+                alt_fire_attributes.save()
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({ message: "Error!", error_info: err})
+                    })
+
+                let alt_fire = new AltFire({
+                    type : data.alt_fire.type,
+                    attributes : alt_fire_attributes
                 })
 
-            let alt_fire = new AltFire({
-                type : data.alt_fire.type,
-                attributes : alt_fire_attributes
-            })
-
-            alt_fire.save()
-                .catch(err => {
-                    console.log(err)
-                    res.status(500).send({ message: "Error!", error_info: err})
-                })
+                alt_fire.save()
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({ message: "Error!", error_info: err})
+                    })
+            }
             
             // Creating Feature Model
-            let feature = new Feature(data.feature)
-            
-            feature.save()
-                .catch(err => {
-                    console.log(err)
-                    res.status(500).send({ message: "Error!", error_info: err})
-                })
+            if (data.feature) {
+                let feature = new Feature(data.feature)
+                
+                feature.save()
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({ message: "Error!", error_info: err})
+                    })
+            }
 
             let weapon = new Weapon({
                 name : data.name,
