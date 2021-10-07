@@ -43,17 +43,18 @@ module.exports = (app) => {
 
             // Creating Alt-Fire and the Associated Attributes Model
             let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
+
+            let alt_fire = new AltFire({
+                type : data.alt_fire.type,
+                attributes : alt_fire_attributes
+            })
+
             if (data.alt_fire) {
                 alt_fire_attributes.save()
                     .catch(err => {
                         console.log(err)
                         res.status(500).send({ message: "Error!", error_info: err})
                     })
-
-                let alt_fire = new AltFire({
-                    type : data.alt_fire.type,
-                    attributes : alt_fire_attributes
-                })
 
                 alt_fire.save()
                     .catch(err => {
@@ -64,6 +65,7 @@ module.exports = (app) => {
             
             // Creating Feature Model
             let feature = new Feature(data.feature)
+            
             if (data.feature) {  
                 feature.save()
                     .catch(err => {
