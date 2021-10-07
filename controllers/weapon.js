@@ -48,7 +48,16 @@ module.exports = (app) => {
             // dmg3.save()
 
             // Creating Alt-Fire Model
-            let alt_fire_attributes = new AltFireAttribute(data.alt_fire.attributes)
+            let alt_fire_attributes = new AltFireAttribute({
+                pellet_count : data.alt_fire.attributes.pellet_count,
+                burst_rate : data.alt_fire.attributes.burst_rate,
+                fire_rate : data.alt_fire.attributes.fire_rate,
+                zoom : data.alt_fire.attributes.zoom,
+                move_speed : data.alt_fire.attributes.move_speed,
+                rounds_per_burst : data.alt_fire.attributes.rounds_per_burst,
+                canister_detonation_distance : data.alt_fire.attributes.canister_detonation_distance,
+                special : data.alt_fire.attributes.special
+            })
 
             let alt_fire = new AltFire({
                 type : data.alt_fire.type,
