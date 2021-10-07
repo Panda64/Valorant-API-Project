@@ -23,44 +23,64 @@ Using the same `/classnamehere` endpoint, make a `POST` request with the body co
 {
     "damage": [
         {
-            "range": "0-15m",
-            "head": "156",
-            "body": "39",
-            "legs": "33"
+            "range": {
+                "low": 0,
+                "high": 15
+            },
+            "head": 156,
+            "body": 39,
+            "legs": 33
         },
         {
-            "range": "15-30m",
-            "head": "140",
-            "body": "35",
-            "legs": "29"
+            "range": {
+                "low": 15,
+                "high": 30
+            },
+            "head": 140,
+            "body": 35,
+            "legs": 29
         },
         {
-            "range": "30-50m",
-            "head": "124",
-            "body": "31",
-            "legs": "26"
+            "range": {
+                "low": 30,
+                "high": 50
+            },
+            "head": 124,
+            "body": 31,
+            "legs": 26
         }
     ],
     "name": "Phantom",
-    "cost": "2900",
+    "cost": 2900,
     "spread": "https://valorant-api-project.herokuapp.com/images/phantom",
-    "fire_type": "Full-Auto",
+    "fire_type": "Auto",
     "penetration": "Medium",
-    "fire_rate": "11 Rds/Sec",
-    "run_speed": "5.4 M/Sec",
-    "equip_speed": "1 Sec",
-    "first_shot_spread": "0.2/0.11 Deg (Hip/ADS)",
-    "reload_speed": "2.5 Sec",
-    "magazine": "30 rounds",
+    "fire_rate": 11,
+    "run_speed": 5.4,
+    "equip_speed": 1,
+    "first_shot_spread": {
+        "hip": 0.2,
+        "ads": 0.11
+    },
+    "reload_speed": 2.5,
+    "magazine": 30,
     "alt_fire": {
-        "attributes": [
-            "Zoom: 1.25x",
-            "Fire Rate: 90% (9.9 rounds/sec)",
-            "Move Speed: 76% (4.104 m/sec)",
-            "Slight spread and recoil reduction",
-            "Crosshair follows recoil"
-        ],
-        "type": "Aim Down Sights"
+        "type": "Aim Down Sights",
+        "attributes": {
+            "zoom": 1.25,
+            "fire_rate": [
+                "90%",
+                9.9
+            ],
+            "move_speed": [
+                "76%",
+                4.104
+            ],
+            "special": [
+                "Slight spread and recoil reduction",
+                "Crosshair follows recoil"
+            ]
+        }
     },
     "feature": {
         "attributes": [
