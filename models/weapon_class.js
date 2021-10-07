@@ -10,11 +10,11 @@ const WeaponClassSchema = new Schema({
   WeaponClassSchema
     .pre('findOne', Populate({
         path : "weapons",
-        populate : { path : "damage alt_fire feature" },
+        populate : { path : "first_shot_spread damage alt_fire feature" },
     }))
     .pre('find', Populate({
         path : "weapons",
-        populate : { path : "damage alt_fire feature" },
+        populate : { path : "first_shot_spread damage alt_fire feature" },
     }))
 
   module.exports = mongoose.model("WeaponClass", WeaponClassSchema)

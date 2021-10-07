@@ -11,7 +11,7 @@ const WeaponSchema = new Schema({
     fire_rate : { type: Number, required: true },
     run_speed : { type: Number, required: true },
     equip_speed : { type: Number, required: true },
-    first_shot_spread : { type: String, required: true },
+    first_shot_spread : { type: Schema.Types.ObjectId, ref: "FirstShotSpread" },
     reload_speed : { type: Number, required: true },
     magazine : { type: Number, required: true },
     damage : [{ type: Schema.Types.ObjectId, ref: "DamageRange"}],
@@ -20,7 +20,7 @@ const WeaponSchema = new Schema({
   })
 
   WeaponSchema
-    .pre('findOne', Populate('damage alt_fire feature'))
-    .pre('find', Populate('damage alt_fire feature'))
+    .pre('findOne', Populate('first_shot_spread damage alt_fire feature'))
+    .pre('find', Populate('first_shot_spread damage alt_fire feature'))
 
   module.exports = mongoose.model("Weapon", WeaponSchema)

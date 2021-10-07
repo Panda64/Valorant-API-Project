@@ -1,10 +1,11 @@
 const WeaponClass = require('../models/weapon_class')
 const Weapon = require('../models/weapon')
+const FirstShotSpread = require('../models/first_shot_spread')
 const DamageRange = require('../models/damage_range')
+const RangeValue = require('../models/damage_range_values')
 const AltFire = require('../models/alt_fire')
 const Feature = require('../models/feature')
 const AltFireAttribute = require('../models/alt_fire_attributes')
-const RangeValue = require('../models/damage_range_values')
 
 module.exports = (app) => {
 
@@ -13,6 +14,15 @@ module.exports = (app) => {
         if (req.header('X-RapidAPI-Proxy-Secret') === process.env.RAPIDAPI_PROXY_SECRET) {
             let data = req.body
             let dmgs = []
+
+            // Creating First Shot Spread Model
+            let first_shot_spread = new FirstShotSpread(data.first_shot_spread)
+
+            first_shot_spread.save()
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).send({ message: "Error!", error_info: err})
+                })
 
             // Creating Damage Models
             for (let i = 0; i < 3; i++) {
@@ -85,7 +95,7 @@ module.exports = (app) => {
                 fire_rate : data.fire_rate,
                 run_speed : data.run_speed,
                 equip_speed : data.equip_speed,
-                first_shot_spread : data.first_shot_spread,
+                first_shot_spread : first_shot_spread,
                 reload_speed : data.reload_speed,
                 magazine : data.magazine,
                 damage : [dmgs[0], dmgs[1], dmgs[2]],
