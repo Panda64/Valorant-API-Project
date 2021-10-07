@@ -17,27 +17,29 @@ module.exports = (app) => {
             console.log(data)
             // Creating Damage Models
             for (let i = 0; i < 3; i++) {
-                let rng = new RangeValue(data.damage[i].range)
-                rng.save()
-                    .catch(err => {
-                        console.log(err)
-                        res.status(500).send({ message: "Error!", error_info: err})
+                if (data.damage[i]) {
+                    let rng = new RangeValue(data.damage[i].range)
+                    rng.save()
+                        .catch(err => {
+                            console.log(err)
+                            res.status(500).send({ message: "Error!", error_info: err})
+                        })
+
+                    let dmg = new DamageRange({
+                        range : rng,
+                        head : data.damage[i].head,
+                        body : data.damage[i].body,
+                        legs : data.damage[i].legs
                     })
 
-                let dmg = new DamageRange({
-                    range : rng,
-                    head : data.damage[i].head,
-                    body : data.damage[i].body,
-                    legs : data.damage[i].legs
-                })
-
-                dmg.save()
-                    .catch(err => {
-                        console.log(err)
-                        res.status(500).send({ message: "Error!", error_info: err})
-                    })
-                
-                dmgs.push(dmg)
+                    dmg.save()
+                        .catch(err => {
+                            console.log(err)
+                            res.status(500).send({ message: "Error!", error_info: err})
+                        })
+                    
+                    dmgs.push(dmg)
+                }
             }
             
             // let dmg1 = new DamageRange(data.damage[0])
