@@ -6,7 +6,7 @@ If you have access to the `CREATE`, `UPDATE`, and `DELETE` routes of this API, h
 
 Adding either a weapon or weapon class is basically just the `GET` requests in reverse. For example, to create a new weapon class, make a `POST` request (with required [RapidAPI](https://rapidapi.com/Panda64/api/valorant-weapons) headers) to https://valorant-weapons.p.rapidapi.com/weapon-class, with the body containing a JSON object of what the name of the weapon class should be, like this:
 
-``` JSON
+``` json
 
 {
     "name": "classnamehere"
