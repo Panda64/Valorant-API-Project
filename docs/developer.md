@@ -18,7 +18,7 @@ Now the weapon class is available to be retreived through the `/classnamehere` e
 
 Using the same `/classnamehere` endpoint, make a `POST` request with the body containing the name and stats of the weapon, like of what is seen in the `/weapon/weapon_name` `GET` endpoint:
 
-``` JSON
+``` json
 
 {
     "damage": [
@@ -101,7 +101,7 @@ Deleting a weapon or weapon class is simply just a `DELETE` request to the `/wea
 
 To update a weapon class name, make a `PUT` request to the `/weapon_class_name` endpoint with the body containing a JSON object with the new name like this:
 
-``` JSON
+``` json
 
 {
     "name": "renamedclass"

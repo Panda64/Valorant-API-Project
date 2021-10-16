@@ -23,7 +23,7 @@ Here is the current list of weapon classes (valid *case sensitive* `weapon_class
 
 These endpoints can be tested at the [RapidAPI](https://rapidapi.com/Panda64/api/valorant-weapons) page, but here is an example response from the `SMGS` endpoint just for show:
 
-``` JSON
+``` json
 
 {
     "weapons": [
@@ -194,7 +194,7 @@ Below is the current list (again, valid *case sensitive* `weapon_name` inputs) o
 
 Here is an example response from the `Ghost` endpoint:
 
-``` JSON
+``` json
 
 {
     "damage": [
@@ -246,7 +246,7 @@ Here is an example response from the `Ghost` endpoint:
 
 Most of the information returned is just numbers. Refer to the reference below for the units/explanation of each ambiguous value.
 
-``` JSON
+``` json
 
 {
     "damage": [

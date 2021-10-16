@@ -1,4 +1,4 @@
 <!-- docs/_sidebar.md -->
 
-* [Home](/)
+* [VALORANT Weapons API](/)
 * [Developers](developer.md)
